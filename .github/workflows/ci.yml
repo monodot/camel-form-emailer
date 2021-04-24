@@ -17,5 +17,5 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Build
-        run: ./mvnw verify -B
+      - name: Build image
+        run: ./mvnw -B clean package -Dquarkus.container-image.build=true
