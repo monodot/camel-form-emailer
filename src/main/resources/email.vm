@@ -1,0 +1,8 @@
+${body.message}
+
+---
+
+Message sent by ${body.name} <${body.email}>
+
+Forwarded by Apache Camel at ${headers.timestamp}
+

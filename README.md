@@ -1,5 +1,22 @@
 # form-emailer project
 
+
+## Initialising the database
+
+```
+cat src/main/resources/init_db.sql | sqlite3 mydb.db
+
+cat << EOF > ./config/application.properties
+smtps.host=smtp.yourcompany.com:465
+smtps.username=user@example.com
+smtps.password=xxxxxx
+EOF
+
+podman run -v $(pwd):/db \
+    -v $(pwd)/config:/app/config \
+    quay.io/monodot/form-emailer:latest
+```
+    
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
