@@ -1,6 +1,11 @@
 ## This is basic continuous integration build for your Quarkus application.
 
-name: Quarkus Codestart CI
+name: form-emailer
+
+env:
+  REGISTRY_USER: monodot
+  REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+  TAG: latest
 
 on:
   push:
@@ -18,4 +23,11 @@ jobs:
         with:
           java-version: 11
       - name: Build image
-        run: ./mvnw -B clean package -Dquarkus.container-image.build=true
+        run: |
+          ./mvnw -B clean package -Dquarkus.container-image.build=true \
+              -Dquarkus.container-image.group=${{ env.REGISTRY_USER }} \
+              -Dquarkus.container-image.tag=${{ env.TAG }} \
+              -Dquarkus.container-image.push=true \
+              -Dquarkus.container-image.registry=quay.io \
+              -Dquarkus.container-image.username=${{ env.REGISTRY_USER }} \
+              -Dquarkus.container-image.password=${{ env.REGISTRY_PASSWORD }}
