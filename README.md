@@ -1,4 +1,8 @@
-# camel-form-emailer
+<h1 align="center">
+    <img src="./logo.png" width="250"/>
+    <br/>
+    camel-form-emailer
+</h1>
 
 This Java application uses [Apache Camel][camel] to expose an API to receive and process HTML form submissions. The app saves each submission to a database, and then it sends an email.
 
@@ -9,6 +13,12 @@ Once a submission has been processed, the application returns an HTTP `Location`
 This application uses [Quarkus][quarkus], the Supersonic Subatomic Java Framework.
 
 For more info on this app and how it was created, read the accompanying blog post at [tomd.xyz][1].
+
+## Go explore
+
+- 🐪 Have a look at the Apache [Camel routes][routes] in [FormEmailerRouteBuilder.java](/src/main/java/xyz/tomd/FormEmailerRouteBuilder.java)
+- 🔨 See the unit tests in [FormEmailerRouteBuilderTest.java](src/test/java/xyz/tomd/FormEmailerRouteBuilderTest.java)
+- 🍎 See how the application is configured in [application.properties](src/main/resources/application.properties)
 
 ## Getting started (Local)
 
@@ -33,7 +43,9 @@ cat src/main/resources/init_db.sql | sqlite3 target/submissions.db
 
 ### 2. Configure the application
 
-Next, configure the application with the details of your SMTP server, database file name, and other properties. Edit the file _src/main/resources/application.properties_. e.g.:
+Next, configure the application with the details of your SMTP server, database file name, and other properties. Edit the file _src/main/resources/application.properties_. 
+
+e.g.:
 
 ```
 # Where should the user be redirected to, after a successful or failed submission?
@@ -146,3 +158,4 @@ If you want to learn more about building native executables, please consult http
 [sqlite-download]: https://www.sqlite.org/download.html
 [ubuntu]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-sqlite-on-ubuntu-20-04
 [quarkus-config]: https://quarkus.io/guides/config-reference#pwd_config_application_file
+[routes]: https://tomd.xyz/camel-routes/
