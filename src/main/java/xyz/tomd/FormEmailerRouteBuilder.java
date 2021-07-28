@@ -1,13 +1,13 @@
 package xyz.tomd;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
+import org.apache.camel.builder.RouteBuilder;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class FormEmailerRouteBuilder extends EndpointRouteBuilder {
+public class FormEmailerRouteBuilder extends RouteBuilder {
 
     @Inject
     SubmissionValidPredicate submissionIsValid;
