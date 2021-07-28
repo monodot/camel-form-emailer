@@ -20,6 +20,24 @@ For more info on this app and how it was created, read the accompanying blog pos
 - 🔨 See the unit tests in [FormEmailerRouteBuilderTest.java](src/test/java/xyz/tomd/FormEmailerRouteBuilderTest.java)
 - 🍎 See how the application is configured in [application.properties](src/main/resources/application.properties)
 
+## Deploying as a container
+
+There is a GitHub Actions pipeline in this repository, which builds and pushes a Docker image to quay.io on every commit to the _main_ branch:
+
+`quay.io/monodot/camel-form-emailer:latest`
+
+So you can run the application in a container using Docker or Podman, mounting appropriate volumes to the `/work/config` (for app configuration) and `/work/db` (SQLite database) directories:
+
+```
+podman run -d \
+    -v /opt/formeml/config:/work/config:Z \
+    -v /opt/formeml/db:/work/db:Z \
+    -p 8087:8080 \
+    --name form-emailer 
+    --net=host \
+    quay.io/monodot/camel-form-emailer:latest
+```
+
 ## Getting started (Local)
 
 The application saves form submissions to a [SQLite][sqlite] database, which is basically a file. The database file isn't included with this repo, so you need to initialise the database file first. 
