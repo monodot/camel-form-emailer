@@ -42,8 +42,7 @@ public class FormEmailerRouteBuilder extends RouteBuilder {
                 .setHeader("timestamp", simple("${date:now:yyyy-MM-dd'T'HH:mm:ss.SSSXXX}"))
 
                 // insert into SQLite here in case the email doesn't send
-                .to("sql:insert into responses (sender_name, sender_email, message, received) values (:#name, :#email, :#message, :#timestamp)")
-                .log("Saved into DB")
+                .wireTap("seda:insert-to-db")
 
                 // Prepare the email content
                 .to("velocity:email.vm")
@@ -63,6 +62,14 @@ public class FormEmailerRouteBuilder extends RouteBuilder {
                 .setHeader("Location", simple("{{redirect.success}}"))
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(303)) // Redirect 303 See Other after form submission
                 .transform(constant(""));
+
+        from("seda:insert-to-db") // Do this asynchronously away from the main route
+                .log("Putting into the DB")
+
+                // insert into SQLite here in case the email doesn't send
+                .to("sql:insert into responses (sender_name, sender_email, message, received) values (:#name, :#email, :#message, :#timestamp)")
+                .log("Saved into DB");
+
 
     }
 }

@@ -65,8 +65,11 @@ class FormEmailerRouteBuilderTest {
 
         // Possibly replace this with a Testcontainer in future
 
-        Connection conn = dataSource.getConnection();
-        Statement statement = conn.createStatement();
+        Connection conn;
+        Statement statement;
+
+        conn = dataSource.getConnection();
+        statement = conn.createStatement();
 
         int deleteResult = statement.executeUpdate("drop table if exists responses");
         int dbResult = statement.executeUpdate("create table responses (\n" +
@@ -76,6 +79,8 @@ class FormEmailerRouteBuilderTest {
                 "    message text,\n" +
                 "    received text\n" +
                 ");");
+
+        conn.close(); // Tidy up before the Camel stuff runs
 
         given()
                 .when()
@@ -92,6 +97,10 @@ class FormEmailerRouteBuilderTest {
         // Check that the email arrived
         Mailbox box = Mailbox.get(mailToAddress);
         assertEquals(1, box.size());
+
+        // Create a new connection
+        conn = dataSource.getConnection();
+        statement = conn.createStatement();
 
         // Check that the data was persisted to the sqlite DB
         ResultSet results = statement.executeQuery("select * from responses");
