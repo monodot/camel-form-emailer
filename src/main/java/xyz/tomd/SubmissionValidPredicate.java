@@ -34,8 +34,10 @@ public class SubmissionValidPredicate implements Predicate {
             }
         }
 
-        // Also check that the antispam field is correct
-        if (!exchange.getMessage().getHeader(ANTISPAM_FIELD, "").equals(antispamAnswer)) {
+        String antispam = exchange.getMessage().getHeader(ANTISPAM_FIELD, String.class).trim();
+
+        // Also check that the antispam field is correct (ignoring spaces and upper/lower case)
+        if (!(antispam.equalsIgnoreCase(antispamAnswer))) {
             isValid = false;
         }
 

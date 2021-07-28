@@ -135,4 +135,24 @@ class FormEmailerRouteBuilderTest {
 
     }
 
+    /**
+     * If the user supplies an antispam answer with padding or in the wrong case,
+     * allow it
+     * @throws Exception
+     */
+    @Test
+    public void testWrongCaseWithSpacesAntispamIsPermitted() throws Exception {
+        given()
+                .when()
+                .redirects().follow(false)
+                .formParam("name", "Dave Smith")
+                .formParam("email", "user@example.com")
+                .formParam("message", "Great website!")
+                .formParam("antispam", "  CaMeLs  ")
+                .post("/")
+                .then()
+                .statusCode(303) // Redirect 303 See Other
+                .header("Location", is(redirectSuccessUrl)); // check for redirect to success URL
+    }
+
 }
