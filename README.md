@@ -168,6 +168,11 @@ You can then execute your native executable with: `./target/camel-form-emailer-1
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
 
 
+## Known issues
+
+- The SQLite driver doesn't seem to work when running as a native executable. SAD FACE. Not sure how to fix this.
+
+
 [1]: https://tomd.xyz
 [flavio]: https://flaviocopes.com/sqlite-how-to-install/
 [sqlite]: https://www.sqlite.org/index.html
