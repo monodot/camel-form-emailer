@@ -16,6 +16,7 @@ public class FormEmailerRouteBuilder extends RouteBuilder {
     public void configure() throws Exception {
 
         from("platform-http:/?httpMethodRestrict=GET,POST")
+                .id("receive-http-route")
                 .choice()
                     .when(header(Exchange.HTTP_METHOD).isEqualTo(constant("POST")))
                     .log("Received POST submission")
@@ -39,6 +40,7 @@ public class FormEmailerRouteBuilder extends RouteBuilder {
 
 
         from("direct:process-valid-response")
+                .id("process-valid-response-route")
                 .setHeader("timestamp", simple("${date:now:yyyy-MM-dd'T'HH:mm:ss.SSSXXX}"))
 
                 // insert into SQLite here in case the email doesn't send
@@ -64,6 +66,7 @@ public class FormEmailerRouteBuilder extends RouteBuilder {
                 .transform(constant(""));
 
         from("seda:insert-to-db") // Do this asynchronously away from the main route
+                .id("insert-to-db-route")
                 .log("Putting into the DB")
 
                 // insert into SQLite here in case the email doesn't send
