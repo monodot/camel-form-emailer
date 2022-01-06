@@ -1,0 +1,11 @@
+[Unit]
+Description=Camel Form Emailer
+
+[Service]
+User=cformeml
+Group=cformeml
+ExecStart=/opt/cformeml/cformeml
+WorkingDirectory=/opt/cformeml
+
+[Install]
+WantedBy=multi-user.target
