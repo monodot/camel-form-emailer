@@ -6,8 +6,8 @@
     <artifactId>camel-form-emailer</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <properties>
-        <camel-quarkus.version>1.8.1</camel-quarkus.version>
-        <quarkus.version>1.13.0.Final</quarkus.version>
+        <camel-quarkus.version>2.6.0</camel-quarkus.version>
+        <quarkus.version>2.6.0.Final</quarkus.version>
 
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -16,9 +16,6 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>1.13.2.Final</quarkus.platform.version>
 
         <sqlite-jdbc.version>3.34.0</sqlite-jdbc.version>
     </properties>
